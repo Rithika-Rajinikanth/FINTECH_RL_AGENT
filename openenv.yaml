@@ -1,0 +1,117 @@
+name: creditlens
+version: "1.0.0"
+description: >
+  CreditLens is an AI-powered credit risk underwriting environment that simulates
+  real-world loan officer decisions. An agent must approve, reject, counter-offer,
+  or request information for loan applicants while balancing credit risk, fairness
+  regulations, and portfolio stability under macroeconomic shocks.
+author: CreditLens Team
+license: MIT
+tags:
+  - finance
+  - credit-risk
+  - fairness
+  - fraud-detection
+  - reinforcement-learning
+
+tasks:
+  - id: easy
+    name: "Loan Approval Queue"
+    description: >
+      Process a queue of 10 synthetic applicants with clean FICO scores and
+      standard profiles. No edge cases. Grade by F1 score against ground truth labels.
+    difficulty: easy
+    max_steps: 20
+    score_range: [0.0, 1.0]
+
+  - id: medium
+    name: "Portfolio Rebalancing Under Rate Shift"
+    description: >
+      The Fed has raised rates +75bps mid-episode. Rebalance your approval mix to
+      keep Expected Credit Loss under budget while maintaining portfolio quality.
+    difficulty: medium
+    max_steps: 40
+    score_range: [0.0, 1.0]
+
+  - id: hard
+    name: "Systemic Shock with Hidden Fraud Ring"
+    description: >
+      20 applicants, 3 share synthetic identities in a fraud ring detectable via
+      graph features. A macro shock hits mid-episode. Catch fraud, maintain stability,
+      stay within fairness bounds simultaneously.
+    difficulty: hard
+    max_steps: 60
+    score_range: [0.0, 1.0]
+
+api:
+  base_url: "http://localhost:8000"
+  endpoints:
+    reset: "POST /reset"
+    step: "POST /step"
+    state: "GET /state"
+
+observation_space:
+  type: object
+  fields:
+    - name: applicant_id
+      type: string
+    - name: fico_score
+      type: integer
+      range: [300, 850]
+    - name: income
+      type: float
+    - name: loan_amount
+      type: float
+    - name: dti_ratio
+      type: float
+    - name: credit_utilization
+      type: float
+    - name: employment_years
+      type: float
+    - name: loan_purpose
+      type: string
+    - name: xgb_default_prob
+      type: float
+      range: [0.0, 1.0]
+    - name: shap_top_feature
+      type: string
+    - name: fraud_ring_score
+      type: float
+      range: [0.0, 1.0]
+    - name: demographic_group
+      type: string
+    - name: fed_funds_rate
+      type: float
+    - name: macro_shock_active
+      type: boolean
+    - name: step_number
+      type: integer
+    - name: portfolio_ecl
+      type: float
+    - name: approval_rate_protected
+      type: float
+
+action_space:
+  type: enum
+  actions:
+    - id: 0
+      name: APPROVE
+      description: "Approve the loan at requested amount"
+      params:
+        amount_fraction: float  # 0.5 to 1.0
+    - id: 1
+      name: REJECT
+      description: "Decline with regulatory reason code"
+      params:
+        reason_code: string
+    - id: 2
+      name: COUNTER
+      description: "Counter-offer with revised terms"
+      params:
+        revised_amount_fraction: float
+        revised_rate_delta: float
+    - id: 3
+      name: REQUEST_INFO
+      description: "Ask for additional document (costs 1 step)"
+      params:
+        field_name: string

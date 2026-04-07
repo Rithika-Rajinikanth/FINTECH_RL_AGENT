@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  creditlens:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: creditlens:latest
+    container_name: creditlens_api
+    ports:
+      - "8000:8000"
+    environment:
+      - API_BASE_URL=http://localhost:8000
+      - MODEL_NAME=llama3.2
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ../artifacts:/app/artifacts
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Optional: Ollama for local LLM inference (100% free)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: creditlens_ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  ollama_models:

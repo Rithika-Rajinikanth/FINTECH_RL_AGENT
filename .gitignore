@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Data & models
+creditlens/data/loans.parquet
+artifacts/
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/*.ipynb
+
+# Logs
+*.log
+tensorboard_logs/
+
+# OS
+.DS_Store
+Thumbs.db
