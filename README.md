@@ -1,14 +1,12 @@
 ---
-title: Creditlens
-emoji: 🚀
-colorFrom: indigo
-colorTo: green
-sdk: gradio
-sdk_version: 6.11.0
-app_file: app.py
+title: CreditLens
+emoji: 🏦
+colorFrom: blue
+colorTo: purple
+sdk: docker
 pinned: false
-license: mit
-short_description: RL agents for loan decisions & fraud detection
+tags:
+  - openenv
 ---
 
 # CreditLens
@@ -282,7 +280,7 @@ creditlens/
 | v1 (initial) | 0.72 | — | — | — | Basic rule-based agent |
 | v2 | 0.8929 | 0.5879 | 0.4333 | 0.6380 | OpenAI SDK + JSON repair |
 | v3 | 0.9615 | 0.4752 | 0.9582 | 0.7983 | Post-parse overrides + post-shock |
-| **v4** | **0.9615** | **~0.74** | **0.9582** | **~0.84** | Fairness direction fix (D2 override) |
+| **v4** | **0.9615** | **0.514** | **0.9582** | **0.768** | Fairness direction fix (D2 override) |
 
 The medium task regression from v2 (0.587) to v3 (0.475) was caused by the fairness override rescuing protected group applicants even when they were already being approved at a higher rate than the reference group. This created an inverted gap (protected 30%+ above reference) that the fairness grader penalised just as severely as under-approval. v4 adds Override D2: when the gap is inverted, borderline protected applicants get COUNTER instead of APPROVE, rebalancing the rates without discriminating.
 
