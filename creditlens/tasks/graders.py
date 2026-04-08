@@ -220,7 +220,7 @@ class HardGrader(BaseGrader):
         gate_penalty = 0.0
         if fraud_recall < self.MIN_FRAUD_RECALL:
             gate_penalty += 0.25  # Major penalty: missed the fraud ring
-        if ecl_ratio > 2.05:  # 5% buffer avoids penalising floating-point accumulation
+        if ecl_ratio > 2.0:
             gate_penalty += 0.20  # Major penalty: blew the ECL budget
 
         raw_score = (
