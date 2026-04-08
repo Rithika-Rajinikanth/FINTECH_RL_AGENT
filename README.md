@@ -1,3 +1,16 @@
+---
+title: Creditlens
+emoji: 🚀
+colorFrom: indigo
+colorTo: green
+sdk: gradio
+sdk_version: 6.11.0
+app_file: app.py
+pinned: false
+license: mit
+short_description: RL agents for loan decisions & fraud detection
+---
+
 # CreditLens
 
 **An AI-powered loan underwriting environment for the OpenEnv benchmark.**
@@ -13,7 +26,7 @@ This is not a toy environment. The reward function models real regulatory law (E
 | Task | Score | Notes |
 |------|-------|-------|
 | Easy | **0.9615** | F1=0.769 on 10 applicants, 1 false negative |
-| Medium | **0.4752 → 0.74+** | Fairness gap inverted in v3, fixed in v4 |
+| Medium | **0.5876** | Fairness gap inverted in v3, fixed in v4 |
 | Hard | **0.9582** | Fraud F1=1.0, portfolio score=1.0, zero gate penalties |
 | **Overall** | **0.7983 → 0.84+** | v4 agent deployed |
 
