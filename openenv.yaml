@@ -43,6 +43,10 @@ tasks:
     max_steps: 60
     score_range: [0.0, 1.0]
 
+server:
+  entry_point: "server.app:main"
+  port: 7860
+  
 api:
   base_url: "http://localhost:8000"
   endpoints:
@@ -115,3 +119,4 @@ action_space:
       description: "Ask for additional document (costs 1 step)"
       params:
         field_name: string
+
