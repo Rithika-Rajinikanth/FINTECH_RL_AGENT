@@ -43,7 +43,7 @@ dependencies = [
 ]
 
 [project.scripts]
-server = "creditlens.inference.service:app"
+server = "server.app:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
